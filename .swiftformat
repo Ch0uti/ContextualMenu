@@ -1,0 +1,15 @@
+# rules
+--enable isEmpty
+
+# format options
+--decimalgrouping none
+--header "{file}"
+--hexgrouping none
+--importgrouping testable-bottom
+--indent 2
+--octalgrouping none
+--ranges nospace
+--self init-only
+
+# file options
+--exclude Pods

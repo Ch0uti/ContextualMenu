@@ -2,23 +2,27 @@ PODS:
   - Menu (0.0.1):
     - SnapKit
   - SnapKit (4.2.0)
+  - SwiftFormat/CLI (0.40.10)
 
 DEPENDENCIES:
   - Menu (from `.`)
   - SnapKit
+  - SwiftFormat/CLI
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SnapKit
+    - SwiftFormat
 
 EXTERNAL SOURCES:
   Menu:
     :path: "."
 
 SPEC CHECKSUMS:
-  Menu: c276a80be7c890826351145dcf05e1a1ab619a42
+  Menu: 6c16f9b98795c1a1222baffa2406b151f1e4f323
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftFormat: d0e2118da5bfccc0158f0b8eff80c476c5acd984
 
-PODFILE CHECKSUM: afebc92a43de9a4126ebd56e0e1a92c01196be88
+PODFILE CHECKSUM: 0504d7095184b59f466c1d598380facabb947b8b
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.3
