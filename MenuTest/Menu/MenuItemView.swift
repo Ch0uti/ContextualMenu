@@ -10,8 +10,10 @@ public protocol MenuItemView {
 
   var didHighlight: () -> Void { get set }
 
+  // Not used. This is used for scrolling to the item
   var initialFocusedRect: CGRect? { get }
 
+  // Not used.
   var updateLayout: () -> Void { get set }
 
   func startSelectionAnimation(completion: @escaping () -> Void)

@@ -47,9 +47,9 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   }
 
   public init(title: String, theme: MenuTheme, itemsSource: @escaping () -> [MenuItem]) {
-    self.itemsSource = itemsSource
     self.title = title
     self.theme = theme
+    self.itemsSource = itemsSource
 
     super.init(frame: .zero)
 
@@ -241,6 +241,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
 
     effectView.isHidden = true
 
+    // What is this for? why 0.07?
     longPress?.minimumPressDuration = 0.07
 
     self.contents = contents
@@ -296,6 +297,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
 
   // MARK: - Hit Testing
 
+  // TODO: touching just below the menu doesn't dismiss the content view
   public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     guard let contents = contents else {
       return super.point(inside: point, with: event)
