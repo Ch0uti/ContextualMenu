@@ -209,6 +209,8 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   }
 
   public func showContents() {
+    // TODO: This is used for dismissing other menu. Should use a exclusive group of menus to dismiss.
+    // Remove this notification and use hitTest to dismiss.
     NotificationCenter.default.post(name: MenuView.menuWillPresent, object: self)
 
     let contents = MenuContents(name: title, items: itemsSource(), theme: theme)
