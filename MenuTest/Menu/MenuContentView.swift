@@ -9,7 +9,7 @@ extension UIScrollView {
   }
 }
 
-class MenuContents: UIView {
+class MenuContentView: UIView {
   typealias MenuViewType = MenuItem.MenuViewType
 
   private let maxHeight: CGFloat

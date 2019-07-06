@@ -27,7 +27,7 @@
 		0BCC38A86E0A1016D9AC50C431B81375 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA85F3D7C8DB385CE531CD6CB85D041 /* SnapKit.framework */; };
 		0D20E5863FCF273E0FA80436783D71A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14FE473E37EFB8571E729F9B375CE60E /* Foundation.framework */; };
 		1B48EE08174D763B526E6B278F7668D7 /* UILayoutSupport+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A776DE52C9351C3349591B697385A015 /* UILayoutSupport+Extensions.swift */; };
-		26D3A667A4D2282F06DFF4070C439A4A /* MenuContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A5AFC20B763277F643C69337649695 /* MenuContents.swift */; };
+		26D3A667A4D2282F06DFF4070C439A4A /* MenuContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A5AFC20B763277F643C69337649695 /* MenuContentView.swift */; };
 		2BFD2F5285ACC233F0888088DD1DF85E /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409E101E461807FE3002069AA4672BBF /* Typealiases.swift */; };
 		2E74AB746C6E06EB3449EE992B1432CB /* SnapKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B65309FFC03368BE9854F3027AF2A5F2 /* SnapKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		305121D714FCB2420080C5604FCD7A27 /* ConstraintLayoutGuide+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158A1BCB80FE31B635B248198C25EBB6 /* ConstraintLayoutGuide+Extensions.swift */; };
@@ -157,7 +157,7 @@
 		AE59283B4B76769FCB657A572250A18C /* ConstraintConstantTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintConstantTarget.swift; path = Source/ConstraintConstantTarget.swift; sourceTree = "<group>"; };
 		B65309FFC03368BE9854F3027AF2A5F2 /* SnapKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnapKit-umbrella.h"; sourceTree = "<group>"; };
 		B7A624C968CFF6CF23A7BBFB5AFEA8E2 /* ConstraintMultiplierTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMultiplierTarget.swift; path = Source/ConstraintMultiplierTarget.swift; sourceTree = "<group>"; };
-		B9A5AFC20B763277F643C69337649695 /* MenuContents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuContents.swift; sourceTree = "<group>"; };
+		B9A5AFC20B763277F643C69337649695 /* MenuContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MenuContentView.swift; sourceTree = "<group>"; };
 		BB63D3BF091B498F4D1EC5C95E619814 /* Pods-MenuTest-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-MenuTest-acknowledgements.plist"; sourceTree = "<group>"; };
 		BEA0178B36E793C1CDE076FD0111A79A /* ConstraintMakerPriortizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerPriortizable.swift; path = Source/ConstraintMakerPriortizable.swift; sourceTree = "<group>"; };
 		CAEC25B8B0B56862BE4495D06363B1D8 /* ConstraintLayoutGuideDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutGuideDSL.swift; path = Source/ConstraintLayoutGuideDSL.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 		1F854F72936DDE8FDAACE0167B6FC7DD /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				B9A5AFC20B763277F643C69337649695 /* MenuContents.swift */,
+				B9A5AFC20B763277F643C69337649695 /* MenuContentView.swift */,
 				188F4D6C67EBD790DCB3D0CCDF637D83 /* MenuItem.swift */,
 				421BD5EA78B3420EFE1B55EDD1F29068 /* MenuItemView.swift */,
 				967A02C3497D3CDF786845B18C112364 /* MenuTheme.swift */,
@@ -620,7 +620,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00AD14344A500FB9793209F2086D09C7 /* Menu-dummy.m in Sources */,
-				26D3A667A4D2282F06DFF4070C439A4A /* MenuContents.swift in Sources */,
+				26D3A667A4D2282F06DFF4070C439A4A /* MenuContentView.swift in Sources */,
 				A4C7FCCA0C107787C10868851ADC6A6E /* MenuItem.swift in Sources */,
 				C6C70BD53840F2D631FF31F6643CB5DC /* MenuItemView.swift in Sources */,
 				C6AE0809C62D6E9D8EF5DF19F1DD6645 /* MenuTheme.swift in Sources */,

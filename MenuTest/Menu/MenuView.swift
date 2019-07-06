@@ -17,13 +17,13 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   public var title: String {
     didSet {
       titleLabel.text = title
-      contents?.title = title
+      contentView?.title = title
     }
   }
 
   private var menuPresentationObserver: Any!
 
-  private var contents: MenuContents?
+  private var contentView: MenuContentView?
   private var theme: MenuTheme
   private var longPress: UILongPressGestureRecognizer!
   private var tapGesture: UITapGestureRecognizer!
@@ -144,7 +144,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
 
   @objc private func longPressGesture(_ sender: UILongPressGestureRecognizer) {
     // Highlight whatever we can
-    if let contents = self.contents {
+    if let contents = self.contentView {
       let localPoint = sender.location(in: self)
       let contentsPoint = convert(localPoint, to: contents)
 
@@ -162,13 +162,13 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
         gestureStart = .distantPast
       }
 
-      contents?.isInteractiveDragActive = true
+      contentView?.isInteractiveDragActive = true
     case .cancelled:
       fallthrough
     case .ended:
       let gestureEnd = Date()
 
-      contents?.isInteractiveDragActive = false
+      contentView?.isInteractiveDragActive = false
 
       if gestureEnd.timeIntervalSince(gestureStart) > 0.3 {
         selectPositionAndHideContents(sender)
@@ -184,7 +184,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   }
 
   private func selectPositionAndHideContents(_ gesture: UIGestureRecognizer) {
-    if let contents = contents {
+    if let contents = contentView {
       let point = convert(gesture.location(in: self), to: contents)
 
       if contents.point(inside: point, with: nil) {
@@ -213,7 +213,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     // Remove this notification and use hitTest to dismiss.
     NotificationCenter.default.post(name: MenuView.menuWillPresent, object: self)
 
-    let contents = MenuContents(name: title, items: itemsSource(), theme: theme)
+    let contents = MenuContentView(name: title, items: itemsSource(), theme: theme)
 
     for view in contents.stackView.arrangedSubviews {
       if let view = view as? MenuItemView {
@@ -246,7 +246,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     // What is this for? why 0.07?
     longPress?.minimumPressDuration = 0.07
 
-    self.contents = contents
+    self.contentView = contents
 
     setNeedsLayout()
     layoutIfNeeded()
@@ -263,8 +263,8 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   }
 
   public func hideContents(animated: Bool) {
-    let contentsView = contents
-    contents = nil
+    let contentsView = contentView
+    contentView = nil
 
     longPress?.minimumPressDuration = 0.0
 
@@ -283,13 +283,13 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   }
 
   private var isShowingContents: Bool {
-    return contents != nil
+    return contentView != nil
   }
 
   // MARK: - Relayout
 
   private func relayoutContents() {
-    if let contents = contents {
+    if let contents = contentView {
       setNeedsLayout()
       layoutIfNeeded()
 
@@ -301,7 +301,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
 
   // TODO: touching just below the menu doesn't dismiss the content view
   public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-    guard let contents = contents else {
+    guard let contents = contentView else {
       return super.point(inside: point, with: event)
     }
 
@@ -315,7 +315,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   }
 
   public override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-    guard let contents = contents else {
+    guard let contents = contentView else {
       return super.hitTest(point, with: event)
     }
 
@@ -341,7 +341,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     tintView.backgroundColor = theme.backgroundTint
     effectView.effect = theme.blurEffect
 
-    contents?.applyTheme(theme)
+    contentView?.applyTheme(theme)
   }
 
   public override func tintColorDidChange() {
