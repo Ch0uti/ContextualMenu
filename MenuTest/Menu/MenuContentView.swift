@@ -1,13 +1,7 @@
-// MenuContents.swift
+// MenuContentView.swift
 
 import SnapKit
 import UIKit
-
-extension UIScrollView {
-  var maxContentOffset: CGPoint {
-    return CGPoint(x: contentSize.width - bounds.size.width, y: contentSize.height - bounds.size.height)
-  }
-}
 
 class MenuContentView: UIView {
   typealias MenuViewType = MenuItem.MenuViewType
@@ -15,7 +9,7 @@ class MenuContentView: UIView {
   private let maxHeight: CGFloat
   private let shadowView = UIView()
   private let tintView = UIView()
-  private let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+  private let effectView = UIVisualEffectView(effect: nil)
   private let scrollContainer = UIView()
   private let scrollView = UIScrollView()
 
@@ -384,9 +378,9 @@ class MenuContentView: UIView {
 
   func applyTheme(_ theme: MenuTheme) {
     titleLabel.font = theme.font
-    titleLabel.textColor = theme.textColor
+    titleLabel.textColor = theme.contentTextColor
     effectView.effect = theme.blurEffect
-    tintView.backgroundColor = theme.backgroundTint
+    tintView.backgroundColor = theme.contentBackgroundColor
 
     shadowView.layer.shadowOpacity = theme.shadowOpacity
     shadowView.layer.shadowRadius = theme.shadowRadius
@@ -429,5 +423,11 @@ class MenuContentView: UIView {
     maskLayer.endPoint = CGPoint(x: 0.5, y: 0.33)
 
     scrollContainer.layer.mask = maskLayer
+  }
+}
+
+extension UIScrollView {
+  var maxContentOffset: CGPoint {
+    return CGPoint(x: contentSize.width - bounds.size.width, y: contentSize.height - bounds.size.height)
   }
 }

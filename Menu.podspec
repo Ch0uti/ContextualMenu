@@ -33,8 +33,8 @@ Pod::Spec.new do |spec|
 
   spec.source       = { :git => "https://github.com/TwoLivesLeft/Menu.git", :tag => "#{spec.version}" }
   spec.source_files  = "MenuTest/Menu/*.swift", "MenuTest/Util/*.swift"
-  spec.swift_version = '4.2'
+  spec.swift_version = '5.0'
 
-  spec.dependency "SnapKit"
+  spec.dependency "SnapKit", '~> 5.0.0'
 
 end

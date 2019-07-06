@@ -16,6 +16,7 @@ public protocol MenuItemView {
   // Not used.
   var updateLayout: () -> Void { get set }
 
+  // Not used.
   func startSelectionAnimation(completion: @escaping () -> Void)
 }
 
@@ -221,7 +222,7 @@ public class ShortcutMenuItemView: UIView, MenuItemView, MenuThemeable {
 
   public func applyTheme(_ theme: MenuTheme) {
     nameLabel.font = theme.font
-    nameLabel.textColor = theme.textColor
+    nameLabel.textColor = theme.contentTextColor
     nameLabel.highlightedTextColor = theme.highlightedTextColor
 
     highlightedBackgroundColor = theme.highlightedBackgroundColor
@@ -230,7 +231,7 @@ public class ShortcutMenuItemView: UIView, MenuItemView, MenuThemeable {
       label in
 
       label.font = theme.font
-      label.textColor = theme.textColor
+      label.textColor = theme.contentTextColor
       label.highlightedTextColor = theme.highlightedTextColor
     }
 

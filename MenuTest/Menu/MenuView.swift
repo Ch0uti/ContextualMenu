@@ -54,7 +54,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     super.init(frame: .zero)
 
     titleLabel.text = title
-    titleLabel.textColor = theme.darkTintColor
+    titleLabel.textColor = theme.menuTextColor
     titleLabel.textAlignment = .center
     titleLabel.setContentHuggingPriority(.required, for: .horizontal)
 
@@ -214,18 +214,6 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     NotificationCenter.default.post(name: MenuView.menuWillPresent, object: self)
 
     let contents = MenuContentView(name: title, items: itemsSource(), theme: theme)
-
-    for view in contents.stackView.arrangedSubviews {
-      if let view = view as? MenuItemView {
-        var updatableView = view
-        updatableView.updateLayout = {
-          [weak self] in
-
-          self?.relayoutContents()
-        }
-      }
-    }
-
     addSubview(contents)
 
     contents.snp.makeConstraints {
@@ -246,7 +234,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     // What is this for? why 0.07?
     longPress?.minimumPressDuration = 0.07
 
-    self.contentView = contents
+    contentView = contents
 
     setNeedsLayout()
     layoutIfNeeded()
@@ -284,17 +272,6 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
 
   private var isShowingContents: Bool {
     return contentView != nil
-  }
-
-  // MARK: - Relayout
-
-  private func relayoutContents() {
-    if let contents = contentView {
-      setNeedsLayout()
-      layoutIfNeeded()
-
-      contents.generateMaskAndShadow(alignment: contentAlignment)
-    }
   }
 
   // MARK: - Hit Testing
@@ -336,9 +313,9 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     self.theme = theme
 
     titleLabel.font = theme.font
-    titleLabel.textColor = theme.darkTintColor
+    titleLabel.textColor = theme.menuTextColor
     gestureBarView.backgroundColor = theme.gestureBarTint
-    tintView.backgroundColor = theme.backgroundTint
+    tintView.backgroundColor = theme.menuBackgroundColor
     effectView.effect = theme.blurEffect
 
     contentView?.applyTheme(theme)
