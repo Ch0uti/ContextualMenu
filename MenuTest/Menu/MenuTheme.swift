@@ -36,6 +36,7 @@ public extension MenuTheme {
 }
 
 // MARK: - LightMenuTheme
+
 public struct LightMenuTheme: MenuTheme {
   public let font = UIFont.systemFont(ofSize: 16, weight: .medium)
   public let blurEffect: UIBlurEffect? = UIBlurEffect(style: .light)
@@ -57,6 +58,7 @@ public struct LightMenuTheme: MenuTheme {
 }
 
 // MARK: - DarkMenuTheme
+
 public struct DarkMenuTheme: MenuTheme {
   public let font = UIFont.systemFont(ofSize: 16, weight: .medium)
   public let blurEffect: UIBlurEffect? = UIBlurEffect(style: .dark)
@@ -78,6 +80,7 @@ public struct DarkMenuTheme: MenuTheme {
 }
 
 // MARK: - PlainMenuTheme
+
 public struct PlainMenuTheme: MenuTheme {
   public let font = UIFont.systemFont(ofSize: 16, weight: .medium)
   public let blurEffect: UIBlurEffect? = nil

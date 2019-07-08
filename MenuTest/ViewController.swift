@@ -80,21 +80,29 @@ class ViewController: UIViewController {
       ]
     }
 
-    view.addSubview(menu1)
+    let container = PassthroughView(hitTestView: menu1)
+    container.addSubview(menu1)
+    menu1.snp.makeConstraints { make in
+      make.top.leading.equalToSuperview()
+      make.height.equalTo(40)
+    }
+
+    view.addSubview(container)
     view.addSubview(menu2)
     view.addSubview(menu3)
 
 //    menu1.tintColor = .black
 //    menu2.tintColor = .blue
 
-    menu1.snp.makeConstraints {
+    container.snp.makeConstraints {
       make in
 
       make.top.equalToSuperview().offset(64)
       make.leading.equalToSuperview().inset(20)
 
       // Menus don't have an intrinsic height
-      make.height.equalTo(40)
+      make.height.equalTo(80)
+      make.width.equalTo(100)
     }
 
     menu2.snp.makeConstraints {
@@ -119,5 +127,23 @@ class ViewController: UIViewController {
 
     menu2.contentAlignment = .center
     menu3.contentAlignment = .left
+  }
+}
+
+class PassthroughView: UIView {
+  let hitTestView: UIView
+  init(hitTestView: UIView) {
+    self.hitTestView = hitTestView
+    super.init(frame: .zero)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//    let view = super.hitTest(point, with: event)
+//    return view === self ? nil : view
+    return hitTestView.hitTest(point, with: event)
   }
 }
