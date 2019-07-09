@@ -46,6 +46,12 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     }
   }
 
+  /// Callback for showing the content view.
+  public var onShow: (() -> Void)?
+
+  /// Callback for hiding the content view.
+  public var onHide: (() -> Void)?
+
   public init(title: String, theme: MenuTheme, itemsSource: @escaping () -> [MenuItem]) {
     self.title = title
     self.theme = theme
@@ -248,6 +254,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
 
       self?.feedback.selectionChanged()
     }
+    onShow?()
   }
 
   public func hideContents(animated: Bool) {
@@ -268,9 +275,11 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     } else {
       contentsView?.removeFromSuperview()
     }
+
+    onHide?()
   }
 
-  private var isShowingContents: Bool {
+  public var isShowingContents: Bool {
     return contentView != nil
   }
 
@@ -319,9 +328,5 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     effectView.effect = theme.blurEffect
 
     contentView?.applyTheme(theme)
-  }
-
-  public override func tintColorDidChange() {
-    titleLabel.textColor = tintColor
   }
 }
