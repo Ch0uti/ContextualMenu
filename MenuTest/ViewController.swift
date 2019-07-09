@@ -80,7 +80,8 @@ class ViewController: UIViewController {
       ]
     }
 
-    let container = PassthroughView(hitTestView: menu1)
+    // FIXME: This container blocks the touches
+    let container = UIView()
     container.addSubview(menu1)
     menu1.snp.makeConstraints { make in
       make.top.leading.equalToSuperview()
@@ -130,20 +131,20 @@ class ViewController: UIViewController {
   }
 }
 
-class PassthroughView: UIView {
-  let hitTestView: UIView
-  init(hitTestView: UIView) {
-    self.hitTestView = hitTestView
-    super.init(frame: .zero)
-  }
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//    let view = super.hitTest(point, with: event)
-//    return view === self ? nil : view
-    return hitTestView.hitTest(point, with: event)
-  }
-}
+// class PassthroughView: UIView {
+//  let hitTestView: UIView
+//  init(hitTestView: UIView) {
+//    self.hitTestView = hitTestView
+//    super.init(frame: .zero)
+//  }
+//
+//  required init?(coder _: NSCoder) {
+//    fatalError("init(coder:) has not been implemented")
+//  }
+//
+//  override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+////    let view = super.hitTest(point, with: event)
+////    return view === self ? nil : view
+//    return hitTestView.hitTest(point, with: event)
+//  }
+// }
