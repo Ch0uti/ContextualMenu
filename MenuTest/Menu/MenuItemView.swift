@@ -121,9 +121,7 @@ public class ShortcutMenuItemView: UIView, MenuItemView, MenuThemeable {
 
     nameLabel.textColor = .black
 
-    nameLabel.snp.makeConstraints {
-      make in
-
+    nameLabel.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview().inset(4)
       make.left.equalToSuperview().offset(10)
       make.right.lessThanOrEqualToSuperview().offset(-10)
@@ -132,15 +130,11 @@ public class ShortcutMenuItemView: UIView, MenuItemView, MenuThemeable {
     if let shortcut = item.shortcut, ShortcutMenuItem.displayShortcuts {
       addSubview(shortcutStack)
 
-      nameLabel.snp.makeConstraints {
-        make in
-
+      nameLabel.snp.makeConstraints { make in
         make.right.lessThanOrEqualTo(shortcutStack.snp.left).offset(-12)
       }
 
-      shortcutStack.snp.makeConstraints {
-        make in
-
+      shortcutStack.snp.makeConstraints { make in
         make.top.bottom.equalToSuperview().inset(2)
         make.right.equalToSuperview().inset(6)
       }
@@ -152,9 +146,7 @@ public class ShortcutMenuItemView: UIView, MenuItemView, MenuThemeable {
       for (index, label) in labels.enumerated() {
         shortcutStack.addSubview(label)
 
-        label.snp.makeConstraints {
-          make in
-
+        label.snp.makeConstraints { make in
           make.top.bottom.equalToSuperview()
 
           if index == 0 {

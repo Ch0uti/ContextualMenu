@@ -29,6 +29,9 @@ class ViewController: UIViewController {
         SeparatorMenuItem(),
 
         ShortcutMenuItem(name: "Help", shortcut: (.command, "?"), action: {}),
+        ShortcutMenuItem(name: "Help2", shortcut: (.command, "?"), action: {}),
+        ShortcutMenuItem(name: "Help3", shortcut: (.command, "?"), action: {}),
+        ShortcutMenuItem(name: "Help4", shortcut: (.command, "?"), action: {}),
       ]
     }
 

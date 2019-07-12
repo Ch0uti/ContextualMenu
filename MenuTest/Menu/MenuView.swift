@@ -214,24 +214,46 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     return false
   }
 
+  var overlayView: OverlayView?
   public func showContents() {
     // TODO: This is used for dismissing other menu. Should use a exclusive group of menus to dismiss.
     // Remove this notification and use hitTest to dismiss.
     NotificationCenter.default.post(name: MenuView.menuWillPresent, object: self)
 
-    let contents = MenuContentView(name: title, items: itemsSource(), theme: theme)
-    addSubview(contents)
+    guard let window = self.window else {
+      assertionFailure("Menu view must have a valid window")
+      return
+    }
+
+    let overlayView = OverlayView()
+    self.overlayView = overlayView
+    overlayView.backgroundColor = .clear
+    overlayView.onTap = { [weak self] tap in
+      guard let self = self else { return }
+      self.selectPositionAndHideContents(tap)
+    }
+    overlayView.onLongPress = { [weak self] longPress in
+      guard let self = self else { return }
+      self.longPressGesture(longPress)
+    }
+    window.addSubview(overlayView)
+    overlayView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+
+    let contents = MenuContentView(hostMenuView: self, name: title, items: itemsSource(), theme: theme)
+    overlayView.addSubview(contents)
 
     contents.snp.makeConstraints {
       make in
 
       switch contentAlignment {
       case .left:
-        make.top.right.equalToSuperview()
+        make.top.right.equalTo(self)
       case .right:
-        make.top.left.equalToSuperview()
+        make.top.left.equalTo(self)
       case .center:
-        make.top.centerX.equalToSuperview()
+        make.top.centerX.equalTo(self)
       }
     }
 
@@ -242,11 +264,11 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
 
     contentView = contents
 
-    setNeedsLayout()
-    layoutIfNeeded()
+    overlayView.setNeedsLayout()
+    overlayView.layoutIfNeeded()
 
     contents.generateMaskAndShadow(alignment: contentAlignment)
-    contents.focusInitialViewIfNecessary()
+//    contents.focusInitialViewIfNecessary()
 
     feedback.prepare()
     contents.highlightChanged = {
@@ -268,12 +290,14 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     if animated {
       UIView.animate(withDuration: 0.2, animations: {
         contentsView?.alpha = 0.0
-      }) {
-        _ in
+      }) { [weak self] _ in
         contentsView?.removeFromSuperview()
+        guard let self = self else { return }
+        self.overlayView?.removeFromSuperview()
       }
     } else {
       contentsView?.removeFromSuperview()
+      overlayView?.removeFromSuperview()
     }
 
     onHide?()
@@ -328,5 +352,63 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     effectView.effect = theme.blurEffect
 
     contentView?.applyTheme(theme)
+  }
+}
+
+extension UIView {
+  var window: UIWindow? {
+    var current = self
+    while let superview = current.superview {
+      if let window = superview as? UIWindow {
+        return window
+      } else {
+        current = superview
+      }
+    }
+    return nil
+  }
+}
+
+class OverlayView: UIView {
+
+  var onTap: ((UITapGestureRecognizer) -> ())?
+  var onPan: ((UIPanGestureRecognizer) -> ())?
+  var onLongPress: ((UILongPressGestureRecognizer) -> ())?
+
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    commonInit()
+  }
+
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    commonInit()
+  }
+
+  private func commonInit() {
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapped(_:)))
+    tapGesture.cancelsTouchesInView = false
+    addGestureRecognizer(tapGesture)
+
+    let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panned(_:)))
+    panGesture.cancelsTouchesInView = false
+    addGestureRecognizer(panGesture)
+
+    let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(_:)))
+    longPressGesture.cancelsTouchesInView = false
+    longPressGesture.minimumPressDuration = 0.0
+    addGestureRecognizer(longPressGesture)
+  }
+
+  @objc private func tapped(_ sender: UITapGestureRecognizer) {
+    onTap?(sender)
+  }
+
+  @objc private func panned(_ sender: UIPanGestureRecognizer) {
+    onPan?(sender)
+  }
+
+  @objc private func longPressed(_ sender: UILongPressGestureRecognizer) {
+    onLongPress?(sender)
   }
 }
