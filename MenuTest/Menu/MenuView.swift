@@ -186,7 +186,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
   }
 
   @objc private func tapped(_ sender: UITapGestureRecognizer) {
-    selectPositionAndHideContents(sender)
+//    selectPositionAndHideContents(sender)
   }
 
   private func selectPositionAndHideContents(_ gesture: UIGestureRecognizer) {
@@ -194,12 +194,9 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
       let point = convert(gesture.location(in: self), to: contents)
 
       if contents.point(inside: point, with: nil) {
-        contents.selectPosition(point, completion: {
-          [weak self] menuItem in
-
+        contents.selectPosition(point, completion: { [weak self] menuItem in
           self?.hideContents(animated: true)
-
-          menuItem.performAction()
+          menuItem?.performAction()
         })
       } else {
         hideContents(animated: true)
@@ -228,10 +225,6 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     let overlayView = OverlayView()
     self.overlayView = overlayView
     overlayView.backgroundColor = .clear
-    overlayView.onTap = { [weak self] tap in
-      guard let self = self else { return }
-      self.selectPositionAndHideContents(tap)
-    }
     overlayView.onLongPress = { [weak self] longPress in
       guard let self = self else { return }
       self.longPressGesture(longPress)

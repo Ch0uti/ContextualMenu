@@ -128,19 +128,25 @@ class MenuContentView: UIView {
   }
 
   // When item selected
-  func selectPosition(_ point: CGPoint, completion: @escaping (MenuItem) -> Void) {
-    menuItemViews.enumerated().forEach {
-      index, view in
-
+  func selectPosition(_ point: CGPoint, completion: @escaping (MenuItem?) -> Void) {
+    var foundIndex: Int?
+    var foundView: MenuViewType?
+    for (index, view) in menuItemViews.enumerated() {
       let point = convert(point, to: view)
       if view.point(inside: point, with: nil) {
-        view.startSelectionAnimation {
-          [weak self] in
-          if let self = self {
-            completion(self.items[index])
-          }
+        foundIndex = index
+        foundView = view
+      }
+    }
+
+    if let foundIndex = foundIndex, let foundView = foundView {
+      foundView.startSelectionAnimation { [weak self] in
+        if let self = self {
+          completion(self.items[foundIndex])
         }
       }
+    } else {
+      completion(nil)
     }
   }
 
