@@ -232,7 +232,7 @@ class MenuContentView: UIView {
     super.didMoveToSuperview()
     guard let hostMenuView = hostMenuView,
       superview?.window === hostMenuView.window else {
-        return
+      return
     }
 
     // We're rendering under the superview, so let's do that
@@ -285,7 +285,7 @@ class MenuContentView: UIView {
   func generateMaskAndShadow(alignment: MenuView.Alignment) {
     guard let hostMenuView = hostMenuView,
       superview?.window === hostMenuView.window else {
-        return
+      return
     }
 
     let path = computePath(with: hostMenuView, alignment: alignment)

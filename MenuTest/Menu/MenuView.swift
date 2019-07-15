@@ -185,7 +185,7 @@ public class MenuView: UIView, MenuThemeable, UIGestureRecognizerDelegate {
     }
   }
 
-  @objc private func tapped(_ sender: UITapGestureRecognizer) {
+  @objc private func tapped(_: UITapGestureRecognizer) {
 //    selectPositionAndHideContents(sender)
   }
 
@@ -363,10 +363,9 @@ extension UIView {
 }
 
 class OverlayView: UIView {
-
-  var onTap: ((UITapGestureRecognizer) -> ())?
-  var onPan: ((UIPanGestureRecognizer) -> ())?
-  var onLongPress: ((UILongPressGestureRecognizer) -> ())?
+  var onTap: ((UITapGestureRecognizer) -> Void)?
+  var onPan: ((UIPanGestureRecognizer) -> Void)?
+  var onLongPress: ((UILongPressGestureRecognizer) -> Void)?
 
   override init(frame: CGRect) {
     super.init(frame: frame)
